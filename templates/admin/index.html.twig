@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bonjour AdminController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Bonjour {{ controller_name }}! ✅</h1>
+
+    Ce message amical vient de:
+    <ul>
+        <li>Ton controller à <code><a href="{{ 'S:/wamp64/www/sites/afpa-dwwm-mission8.1b/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
+        <li>Ton template à <code><a href="{{ 'S:/wamp64/www/sites/afpa-dwwm-mission8.1b/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
+    </ul>
+</div>
+{% endblock %}
+
+

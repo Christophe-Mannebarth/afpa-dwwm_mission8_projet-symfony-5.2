@@ -1,0 +1,51 @@
+{% extends 'users.html.twig' %}
+
+{% block title %}Annonces index
+{% endblock %}
+
+{% block body %}
+	<div class="fx-center ">
+		<h1 class="txt-center">Annonces</h1>
+	</div>
+	<div class=" container">
+
+		<div class="pos-xs2 ">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Titre</th>
+						<th>Slug</th>
+						<th>Contenu</th>
+						<th>Crée le</th>
+						<th>Active</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for annonce in app.user.annonces %}
+						<tr>
+							<td>{{ annonce.id }}</td>
+							<td>{{ annonce.title }}</td>
+							<td>{{ annonce.slug }}</td>
+							<td>{{ annonce.content|raw }}</td>
+							<td>{{ annonce.createdAt ? annonce.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+							<td>{{ annonce.active ? 'Oui' : 'Non' }}</td>
+							<td>
+								<a href="{{ path('annonces_details', {'slug': annonce.slug}) }}">voir</a>
+								<a href="{{ path('users_annonces_edit', {'id': annonce.id}) }}">éditer</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7">Aucune annonce actuellement</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="pos-xs2 mt-5">
+			<a href="{{ path('users_annonces_ajout') }}" class="shadow-5 rounded-1 primary p-1 ml-3">Ajouter une annonce</a>
+		</div>
+	</div>
+{% endblock %}

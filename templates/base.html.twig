@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/css/axentix.min.css">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body class="layout with-no-sidenav">
+        <header>
+            <nav class="navbar primary">
+                <a href="{{ path('app_home') }}" class="navbar-brand">AFPA DWWM Mission </a>
+                 {% if app.user %}
+                    <p>
+                        &nbsp;&nbsp;&nbsp;Bienvenue à vous <strong>{{ app.user.firstname }} {{ app.user.name }}</strong>
+                    </p>
+                {% endif %}
+                {%  if is_granted("ROLE_ADMIN") %}
+                    <p>
+                        &nbsp;vous êtes un <strong>Administrateur </strong>du site&nbsp; 
+                    </p>
+                    {% elseif is_granted("ROLE_USER") %}
+                        <p>
+                            &nbsp;vous êtes un <strong>Utilisateur </strong>du site&nbsp;
+                        </p>
+                    {% else %}
+                        <p>
+                            &nbsp;&nbsp;&nbsp;Bienvenue à vous,&nbsp;vous êtes un <strong>Visiteur </strong>du site&nbsp;
+                        </p>
+                {% endif %}
+                <div class="navbar-menu ml-auto">
+                    <div class="dropdown" id="accueil" data-ax="dropdown">
+                        <div class="navbar-link dropdown-trigger">
+                            Accueil
+                        </div>
+                        <div class="dropdown-content right-aligned blue shadow-1">
+                            <a class="dropdown-item" href="{{ path('app_home') }}">Home</a>
+                            <a class="dropdown-item" href="{{ path('mentions') }}">Mentions</a>
+                            <a class="dropdown-item" href="{{ path('contact') }}">Contact</a>
+                        </div>
+                    </div>
+                    <div class="dropdown" id="annonces" data-ax="dropdown">
+                        <div class="navbar-link dropdown-trigger">
+                            Annonces
+                        </div>
+                       <div class="dropdown-content right-aligned blue shadow-1">
+                            <a class="dropdown-item" href="{{ path('annonces_liste') }}">Recherche</a>
+                            <a class="dropdown-item" href="{{ path('users_annonces_ajout') }}">Ajout</a>
+                            <a class="dropdown-item" href="{{ path('annonces_index') }}">Liste</a>
+                        </div>
+                    </div>
+                    <div class="dropdown" id="connexion" data-ax="dropdown">
+                        <div class="navbar-link dropdown-trigger">
+                            Connexion
+                        </div>
+                        <div class="dropdown-content right-aligned blue shadow-1">
+                            <a class="dropdown-item" href="{{ path('app_login') }}">Login/out</a>
+                            <a class="dropdown-item" href="{{ path('app_register') }}">Inscription</a>
+                            <a class="dropdown-item" href="{{ path('users') }}">Profil</a>
+                        </div>
+                    </div>
+                    {%  if is_granted("ROLE_ADMIN") %}
+                        <div class="dropdown" id="admin" data-ax="dropdown">
+                            <div class="navbar-link dropdown-trigger">
+                                Admin
+                            </div>
+                            <div class="dropdown-content right-aligned blue shadow-1">
+                                <a class="dropdown-item" href="{{ path('admin_annonces_home') }}">Annonces</a>
+                                <a class="dropdown-item" href="{{ path('admin_categories_home') }}">Catégories</a>
+                                <a class="dropdown-item" href="{{ path('admin_stats') }}">Statistiques</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+
+        <footer class="footer primary">
+        Copyright © 2021 - DIGI GEEKs
+        </footer>
+
+    
+
+        <script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js"></script>
+        {% block javascripts %}{% endblock %}
+        <script>
+            let accueilDropdown = new Axentix.Dropdown('#accueil');
+            let annoncesDropdown = new Axentix.Dropdown('#annonces');
+            let connexionDropdown = new Axentix.Dropdown('#connexion');
+            let adminDropdown = new Axentix.Dropdown('#admin');
+        </script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+    </body>
+</html>

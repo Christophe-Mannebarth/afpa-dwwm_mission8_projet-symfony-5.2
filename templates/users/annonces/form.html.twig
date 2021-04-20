@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+<div class="mt-3 ">Titre :
+	{{ form_widget(form.title)}}</div>
+<div class="mt-3 ">{{ form_widget(form.images)}}</div>
+<div class="mt-3 ">{{ form_widget(form.content)}}</div>
+<div class="mt-3 ">{{ form_widget(form.categories)}}</div>
+<div class="mt-3 ">{{ form_widget(form.Valider)}}</div>
+
+{# {{ form_widget(form) }} #}
+{# Vérifier si la route est "annonces_edit" on affiche les images #}
+{% if app.request.attributes.get('_route') == 'annonces_edit' %}
+	<h2>Images
+	</h2>
+	{% for image in annonce.images %}
+		<div class='d-flex fx-row mb-5'>
+			<div><img src="{{ asset('uploads/images/annonces/' ~ image.name) }}" alt="Image" width="150"/></div>
+			<div class="v-center fx-center txt-center center">
+				<p>
+					<a href="{{ path('annonces_delete_image', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}" class="shadow-5 rounded-1 primary p-1 ml-3">Supprimer</a>
+				</p>
+				<p></p>
+			</div>
+		</div>
+	{% endfor %}
+{% endif %}
+{# <button class="btn">{{ button_label|default('Save') }}</button> #}
+{{ form_end(form) }}
